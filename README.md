@@ -6,7 +6,7 @@ Divya Electronics is a **small e-commerce website** designed to showcase and sel
 
 ---
 
-## 🖥️ Features
+##  Features
 
 - Responsive navigation bar using **Bootstrap**
 - Product listing with **cards and hover effects**
@@ -47,5 +47,4 @@ Divya-Electronics/
 ├── style.css
 └── images/
 
-## 📂 Project Structure
 
