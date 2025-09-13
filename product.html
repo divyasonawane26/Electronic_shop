@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Electronic Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            transition: transform 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .add-to-cart {
+            background-color: #ff6600;
+            border: none;
+            color: white;
+        }
+        .add-to-cart:hover {
+            background-color: #e65c00;
+        }
+        .popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #28a745;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            font-size: 16px;
+            font-weight: bold;
+            animation: fadeInOut 3s ease-in-out;
+            z-index: 1000;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(-20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="p-3 bg-purple text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+                <a href="index.html" class="text-white text-decoration-none">Electronic Shop</a>
+                <ul class="nav">
+                    <li><a href="index.html" class="nav-link text-white">Home</a></li>
+                    <li><a href="product.html" class="nav-link text-white">Products</a></li>
+                    <li><a href="contact.html" class="nav-link text-white">Contact</a></li>
+                    <li><a href="about.html" class="nav-link text-white">About</a></li>
+                </ul>
+                <div>
+                    <a href="login.html" class="btn btn-outline-light">Login</a>
+                    <a href="register.html" class="btn btn-warning">Sign-up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container" id="product-cards">
+        <h1 class="text-center mt-4">Our Products</h1>
+        <div class="row">
+            <script>
+                const products = [
+                    {img: 'images/pr1.png', name: 'Product 1', price: '500'},
+                    {img: 'images/pr2.png', name: 'Product 2', price: '60'},
+                    {img: 'images/pr3.png', name: 'Product 3', price: '75'},
+                    {img: 'images/pr4.png', name: 'Product 4', price: '120'},
+                    {img: 'images/pr5.png', name: 'Product 5', price: '200'},
+                    {img: 'images/pr6.png', name: 'Product 6', price: '350'},
+                    {img: 'images/pr7.png', name: 'Product 7', price: '450'},
+                    {img: 'images/pr8.png', name: 'Product 8', price: '550'},
+                    {img: 'images/pr9.png', name: 'Product 9', price: '620'},
+                    {img: 'images/pr10.png', name: 'Product 10', price: '700'},
+                    {img: 'images/pr11.png', name: 'Product 11', price: '800'},
+                    {img: 'images/pr12.png', name: 'Product 12', price: '900'},
+                    {img: 'images/pr13.png', name: 'Product 13', price: '1000'},
+                    {img: 'images/pr14.png', name: 'Product 14', price: '1100'},
+                    {img: 'images/pr15.png', name: 'Product 15', price: '1200'},
+                    {img: 'images/pr16.png', name: 'Product 16', price: '1300'},
+                    {img: 'images/pr17.png', name: 'Product 17', price: '1400'},
+                    {img: 'images/pr18.png', name: 'Product 18', price: '1500'},
+                    {img: 'images/pr19.png', name: 'Product 19', price: '1600'},
+                    {img: 'images/pr20.png', name: 'Product 20', price: '1700'}
+                ];
+                document.write('<div class="row">');
+                products.forEach(product => {
+                    document.write(`
+                        <div class="col-md-3 py-3">
+                            <div class="card">
+                                <img src="${product.img}" class="card-img-top" alt="${product.name}">
+                                <div class="card-body text-center">
+                                    <h3>${product.name}</h3>
+                                    <p>$${product.price}</p>
+                                    <button class="btn add-to-cart" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+                document.write('</div>');
+            </script>
+        </div>
+    </div>
+    
+    <div id="cart-popup" class="popup"></div>
+    
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2024 Electronic Shop. All rights reserved.</p>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cartButtons = document.querySelectorAll(".add-to-cart");
+            const popup = document.getElementById("cart-popup");
+            
+            cartButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const name = this.getAttribute("data-name");
+                    popup.textContent = `${name} added to cart!`;
+                    popup.style.display = "block";
+                    setTimeout(() => { popup.style.display = "none"; }, 3000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
